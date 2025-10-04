@@ -14,7 +14,7 @@ interface LoginResponse {
   name?: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || " https://gym-backend-2-61kx.onrender.com";
 
 const Login: React.FC<LoginProps> = ({ setToken }) => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -111,15 +111,15 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
       <div className="absolute inset-0 bg-black/30"></div>
 
       <div className="relative z-10 bg-black/70 p-10 rounded-xl shadow-xl w-full max-w-md text-center text-white">
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center">
           <img
-            src="https://seeklogo.com/images/G/gym-logo-1F3A1D2D41-seeklogo.com.png"
+            src="https://themewagon.github.io/gymlife/img/logo.png"
             alt="Gym Logo"
-            className="w-16 h-16"
+            className=" w-40 h-40 object-contain"
           />
         </div>
 
-        <h2 className="text-3xl font-extrabold mb-8">Welcome!</h2>
+        <h2 className="text-3xl font-extrabold mb-4">Welcome!</h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <input

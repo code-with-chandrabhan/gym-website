@@ -27,7 +27,7 @@ const Register: React.FC = () => {
       setMessage("✅ Registration Successful! Please Login.");
       setTimeout(() => navigate("/login"), 1500);
     } catch (error: any) {
-      setMessage(error.response?.data?.message || "❌ Registration Failed");
+      setMessage(error.response?.data?.message || "Registration Failed");
     } finally {
       setLoading(false);
     }
@@ -47,15 +47,15 @@ const Register: React.FC = () => {
       {/* Register Box */}
       <div className="relative z-10 bg-black/70 p-10 rounded-xl shadow-xl w-full max-w-md text-center text-white">
         {/* Gym Logo */}
-        <div className="flex justify-center mb-6">
+       <div className="flex justify-center">
           <img
-            src="https://seeklogo.com/images/G/gym-logo-1F3A1D2D41-seeklogo.com.png"
+            src="https://themewagon.github.io/gymlife/img/logo.png"
             alt="Gym Logo"
-            className="w-16 h-16"
+            className=" w-40 h-40 object-contain"
           />
         </div>
 
-        <h2 className="text-3xl font-extrabold mb-8">Create an Account</h2>
+        <h2 className="text-3xl font-extrabold mb-4">Create an Account</h2>
 
         <form onSubmit={handleRegister} className="flex flex-col gap-5">
           <input
