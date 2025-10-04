@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = " https://gym-backend-2-61kx.onrender.com";
+const API_URL = "https://gym-backend-2-61kx.onrender.com";
 
 interface RegisterData {
   name: string;

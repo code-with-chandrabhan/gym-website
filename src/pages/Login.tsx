@@ -14,7 +14,7 @@ interface LoginResponse {
   name?: string;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || " https://gym-backend-2-61kx.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL || "https://gym-backend-2-61kx.onrender.com";
 
 const Login: React.FC<LoginProps> = ({ setToken }) => {
   const [form, setForm] = useState({ email: "", password: "" });
