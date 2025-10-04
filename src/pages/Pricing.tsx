@@ -13,7 +13,7 @@ const STRIPE_PUBLIC_KEY =
 
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "https://gym-backend-2-61kx.onrender.com";
 
 interface Plan {
   name: string;
@@ -102,7 +102,7 @@ const handleCheckout = async (plan: Plan) => {
       return;
     }
 
-    const res = await fetch(`${API_URL}/api/payment/create-checkout-session`, {
+    const res = await fetch(`${API_URL}/payment/create-checkout-session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

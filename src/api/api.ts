@@ -15,15 +15,15 @@ interface LoginData {
 }
 
 export const registerUser = (data: RegisterData) =>
-  axios.post(`${API_URL}/auth/register`, data);
+  axios.post(`${API_URL}/api/auth/register`, data);
 
 export const loginUser = (data: LoginData) =>
-  axios.post(`${API_URL}/auth/login`, data);
+  axios.post(`${API_URL}/api/auth/login`, data);
 
 
 
 export const getProfile = (token: string) =>
-  axios.get(`${API_URL}/users/profile`, {
+  axios.get(`${API_URL}/api/users/profile`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -37,7 +37,7 @@ interface OrderResponse {
 
 export const createOrder = (token: string, amount: number) =>
   axios.post<OrderResponse>(
-    `${API_URL}/payment/create-order`,
+    `${API_URL}/api/payment/create-order`,
     { amount },
     { headers: { Authorization: `Bearer ${token}` } }
   );
@@ -51,7 +51,7 @@ interface VerifyResponse {
 
 export const verifyPayment = (token: string, orderId: string) =>
   axios.post<VerifyResponse>(
-    `${API_URL}/payment/verify`,
+    `${API_URL}/api/payment/verify`,
     { orderId },
     { headers: { Authorization: `Bearer ${token}` } }
   );
