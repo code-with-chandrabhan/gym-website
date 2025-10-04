@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://gym-backend-2-61kx.onrender.com";
+const API_URL = "https://gym-backend-2-61kx.onrender.com/api";
 
 interface RegisterData {
   name: string;
@@ -15,15 +15,15 @@ interface LoginData {
 }
 
 export const registerUser = (data: RegisterData) =>
-  axios.post(`${API_URL}/api/auth/register`, data);
+  axios.post(`${API_URL}/auth/register`, data);
 
 export const loginUser = (data: LoginData) =>
-  axios.post(`${API_URL}/api/auth/login`, data);
+  axios.post(`${API_URL}/auth/login`, data);
 
 
 
 export const getProfile = (token: string) =>
-  axios.get(`${API_URL}/api/users/profile`, {
+  axios.get(`${API_URL}/users/profile`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -37,7 +37,7 @@ interface OrderResponse {
 
 export const createOrder = (token: string, amount: number) =>
   axios.post<OrderResponse>(
-    `${API_URL}/api/payment/create-order`,
+    `${API_URL}/payment/create-order`,
     { amount },
     { headers: { Authorization: `Bearer ${token}` } }
   );
@@ -51,7 +51,7 @@ interface VerifyResponse {
 
 export const verifyPayment = (token: string, orderId: string) =>
   axios.post<VerifyResponse>(
-    `${API_URL}/api/payment/verify`,
+    `${API_URL}/payment/verify`,
     { orderId },
     { headers: { Authorization: `Bearer ${token}` } }
   );
