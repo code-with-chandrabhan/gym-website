@@ -229,7 +229,7 @@ const JoinUs: React.FC = () => {
                 SUBMIT
               </button>
               {message && (
-                <p className="text-red-700 font-semibold mt-4 text-center">
+                <p className="text-green-700 font-semibold mt-4 text-center">
                   {message}
                 </p>
               )}
