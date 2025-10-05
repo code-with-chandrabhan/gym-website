@@ -110,7 +110,7 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
     >
       <div className="absolute inset-0 bg-black/30"></div>
 
-      <div className="relative z-10 bg-black/70 p-10 rounded-xl shadow-xl w-full max-w-md text-center text-white">
+      <div className="relative z-10 bg-black/70 p-6 mt-10 mb-10 rounded-xl shadow-xl w-full max-w-md text-center text-white">
         <div className="flex justify-center">
           <img
             src="https://themewagon.github.io/gymlife/img/logo.png"
@@ -162,7 +162,7 @@ const Login: React.FC<LoginProps> = ({ setToken }) => {
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center">
             <button
               onClick={() => navigate("/register")}
-              className="px-6 py-3 bg-blue-600 rounded-lg text-white font-semibold shadow hover:bg-blue-700 transition"
+              className="px-6 py-2 bg-blue-600 rounded-lg text-white font-semibold shadow hover:bg-blue-700 transition"
               disabled={loading}
             >
               Register

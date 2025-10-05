@@ -3,15 +3,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import axios from "axios";
-// import gymlogo from "../assets/gymlogo.png";
-
-
 
 interface NavbarProps {
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
-  token: string | null;   // 🔥 यह लाइन add करो
+  token: string | null;
 }
-
 
 interface User {
   name: string;
@@ -26,43 +22,40 @@ interface User {
   avatar?: string;
 }
 
-
-// ✅ Strongly typed axios call
 const getProfile = (token: string) =>
   axios.get<User>("https://gym-backend-2-61kx.onrender.com/api/users/profile", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
   });
 
-
-const Navbar: React.FC<NavbarProps> = ({ setToken }) => {
+const Navbar: React.FC<NavbarProps> = ({ setToken, token }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const profileBtnRef = useRef<HTMLButtonElement>(null);
 
+  // Fetch profile only if token exists
   useEffect(() => {
     const fetchProfile = async () => {
-      const savedToken = localStorage.getItem("token");
-      if (!savedToken) {
+      if (!token) {
         setUser(null);
         return;
       }
       try {
-        const res = await getProfile(savedToken);
+        const res = await getProfile(token);
         setUser(res.data);
       } catch {
         setUser(null);
         localStorage.removeItem("token");
+        setToken(null);
         navigate("/login");
       }
     };
     fetchProfile();
-  }, [location, navigate]);
+  }, [location, navigate, token, setToken]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -102,19 +95,21 @@ const Navbar: React.FC<NavbarProps> = ({ setToken }) => {
     { name: "About", to: "/about" },
   ];
 
+  // ❗ Conditional rendering: Navbar only shows if token exists
+  if (!token) return null;
+
   return (
-    <nav className=" text-white fixed w-full top-0 left-0 z-50">
-      <div className="max-w-8xl mx-auto px-3 sm:px-6 py-2 sm:py-3 flex  justify-around items-center">
-        {/* Logo --- */}
+    <nav className="text-white fixed w-full top-0 left-0 z-50">
+      <div className="max-w-8xl mx-auto px-3 sm:px-6 py-2 sm:py-3 flex justify-around items-center">
+        {/* Logo */}
         <div className="flex items-center gap-2">
           <img
             src="https://themewagon.github.io/gymlife/img/logo.png"
             alt="GYM Logo"
-            className="h-10 w-auto sm:h-10 object-contain mt-2 "
-            style={{ minWidth: 54 }} // forced min width if needed
+            className="h-10 w-auto sm:h-10 object-contain mt-2"
+            style={{ minWidth: 54 }}
             onClick={() => navigate("/")}
           />
-          {/* Only show site name (optional) */}
         </div>
 
         {/* Hamburger (Mobile) */}
@@ -128,29 +123,21 @@ const Navbar: React.FC<NavbarProps> = ({ setToken }) => {
 
         {/* Links */}
         <ul
-  className={`${
-    mobileMenuOpen
-      ? "flex flex-col absolute top-16 left-0 w-full bg-black p-5 space-y-4 z-40"
-      : "hidden"
-  } md:flex md:flex-row md:space-x-8 md:static md:p-0 md:space-y-0 md:bg-transparent font-bold text-base tracking-wide overflow-hidden`}
->
-
+          className={`${
+            mobileMenuOpen
+              ? "flex flex-col absolute top-16 left-0 w-full bg-black p-5 space-y-4 z-40"
+              : "hidden"
+          } md:flex md:flex-row md:space-x-8 md:static md:p-0 md:space-y-0 md:bg-transparent font-bold text-base tracking-wide overflow-hidden`}
+        >
           {navLinks.map((link) => (
             <li key={link.to}>
               <Link
                 to={link.to}
-                className={`
-                  relative
-                  px-2 py-1
-                  hover:text-orange-500
-                  hover:after:absolute hover:after:left-0 hover:after:-bottom-1 hover:after:w-full
-                  hover:after:h-1 hover:after:bg-orange-500 transition-all
-                  ${
-                    location.pathname === link.to
-                      ? "text-orange-500 border-b-2 border-orange-500 font-bold"
-                      : "text-white"
-                  }
-                `}
+                className={`relative px-2 py-1 hover:text-orange-500 transition-all ${
+                  location.pathname === link.to
+                    ? "text-orange-500 border-b-2 border-orange-500 font-bold"
+                    : "text-white"
+                }`}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
@@ -159,7 +146,7 @@ const Navbar: React.FC<NavbarProps> = ({ setToken }) => {
           ))}
         </ul>
 
-        {/* Profile (mobile/desktop) */}
+        {/* Profile */}
         <div className="flex items-center gap-3 sm:gap-6 relative">
           <button
             ref={profileBtnRef}
@@ -179,7 +166,7 @@ const Navbar: React.FC<NavbarProps> = ({ setToken }) => {
           {isProfileOpen && (
             <div
               ref={dropdownRef}
-              className="absolute   right-0 top-14 w-64 sm:w-80 bg-gradient-to-b from-gray-900 to-black text-gray-200 rounded-xl shadow-2xl border border-gray-700 z-[9999] overflow-hidden animate-fadeIn"
+              className="absolute right-0 top-14 w-64 sm:w-80 bg-gradient-to-b from-gray-900 to-black text-gray-200 rounded-xl shadow-2xl border border-gray-700 z-[9999] overflow-hidden animate-fadeIn"
             >
               {user ? (
                 <>
@@ -191,7 +178,7 @@ const Navbar: React.FC<NavbarProps> = ({ setToken }) => {
                         className="w-12 h-12 rounded-full border-2 border-orange-500 object-cover shadow"
                       />
                     ) : (
-                      <div className="w-12 h-12 min-w-[3rem] min-h-[3rem] bg-orange-500 flex items-center justify-center rounded-full text-xl font-bold shadow overflow-hidden">
+                      <div className="w-12 h-12 min-w-[3rem] min-h-[3rem] bg-orange-500 flex items-center justify-center rounded-full text-xl font-bold shadow">
                         {user.name.charAt(0).toUpperCase()}
                       </div>
                     )}
@@ -203,27 +190,19 @@ const Navbar: React.FC<NavbarProps> = ({ setToken }) => {
                   <div className="p-4 space-y-2 border-b border-gray-700 text-sm bg-gray-900">
                     {user.city && (
                       <p>
-                        <span className="font-semibold text-orange-500">
-                          City:
-                        </span>{" "}
+                        <span className="font-semibold text-orange-500">City:</span>{" "}
                         {user.city}
                       </p>
                     )}
                     <p>
-                      <span className="font-semibold text-orange-500">
-                        Plan:
-                      </span>{" "}
+                      <span className="font-semibold text-orange-500">Plan:</span>{" "}
                       {user.plan || "Not Assigned"}
                     </p>
                     <p>
-                      <span className="font-semibold text-orange-500">
-                        Payment:
-                      </span>{" "}
+                      <span className="font-semibold text-orange-500">Payment:</span>{" "}
                       <span
                         className={`px-2 py-1 rounded-full text-white text-xs ${
-                          user.paymentStatus === "Paid"
-                            ? "bg-green-600"
-                            : "bg-orange-500"
+                          user.paymentStatus === "Paid" ? "bg-green-600" : "bg-orange-500"
                         }`}
                       >
                         {user.paymentStatus}
@@ -231,25 +210,19 @@ const Navbar: React.FC<NavbarProps> = ({ setToken }) => {
                     </p>
                     {user.planStartDate && (
                       <p>
-                        <span className="font-semibold text-orange-500">
-                          Start:
-                        </span>{" "}
+                        <span className="font-semibold text-orange-500">Start:</span>{" "}
                         {new Date(user.planStartDate).toLocaleDateString()}
                       </p>
                     )}
                     {user.planEndDate && (
                       <p>
-                        <span className="font-semibold text-orange-500">
-                          End:
-                        </span>{" "}
+                        <span className="font-semibold text-orange-500">End:</span>{" "}
                         {new Date(user.planEndDate).toLocaleDateString()}
                       </p>
                     )}
                     {user.paymentAmount && (
                       <p>
-                        <span className="font-semibold text-orange-500">
-                          Amount:
-                        </span>{" "}
+                        <span className="font-semibold text-orange-500">Amount:</span>{" "}
                         ${user.paymentAmount}
                       </p>
                     )}

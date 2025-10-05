@@ -45,7 +45,7 @@ const Register: React.FC = () => {
       <div className="absolute inset-0 bg-black/30"></div>
 
       {/* Register Box */}
-      <div className="relative z-10 bg-black/70 p-10 rounded-xl shadow-xl w-full max-w-md text-center text-white">
+      <div className="relative z-10 bg-black/70 p-6 mt-10 mb-10 rounded-xl shadow-xl w-full max-w-md text-center text-white">
         {/* Gym Logo */}
        <div className="flex justify-center">
           <img
