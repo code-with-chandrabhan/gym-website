@@ -7,6 +7,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import About from "../components/about"
 
+
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -23,6 +24,7 @@ import crossfit from "../assets/CrossFit.jpeg";
 import zumba from "../assets/Zumba.jpeg";
 import cardio from "../assets/Cardio.jpeg";
 import personal from "../assets/Personal Training.jpeg";
+
 
 function Gallery() {
   const navigate = useNavigate();
@@ -42,6 +44,8 @@ function Gallery() {
     navigate("/services", { state: { program } });
   };
 
+  const API_URL = "https://gym-backend-2-61kx.onrender.com";
+
   const defaultImages = [Results, Results1, Results2, Results3]; // Always visible
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
@@ -49,7 +53,7 @@ function Gallery() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const res = await axios.get("/api/images");
+        const res = await axios.get(`${API_URL}/api/images`);
         const data = res.data as Array<{ url?: string; imageUrl?: string }>;
         const urls = data
           .map((img) => img.url || img.imageUrl)
@@ -70,7 +74,7 @@ function Gallery() {
     Array.from(files).forEach((file) => formData.append("images", file));
 
     try {
-      const res = await axios.post("/api/images/upload", formData, {
+      const res = await axios.post(`${API_URL}/api/images/upload`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       const data = res.data as Array<{ url?: string; imageUrl?: string }>;
@@ -85,7 +89,7 @@ function Gallery() {
 
   const handleDeleteImage = async (url: string) => {
     try {
-      await axios.delete(`/api/images?url=${encodeURIComponent(url)}`);
+      await axios.delete(`${API_URL}/api/images?url=${encodeURIComponent(url)}`);
       setUploadedImages((prev) => prev.filter((img) => img !== url));
     } catch (err) {
       console.error("Error deleting image:", err);

@@ -6,7 +6,7 @@ import PremiumSuccess from "./PremiumSuccess";
 import PersonalSuccess from "./PersonalSuccess";
 import GroupSuccess from "./GroupSuccess";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "https://gym-backend-2-61kx.onrender.com";
 
 export default function PlanSuccess({
   setToken,

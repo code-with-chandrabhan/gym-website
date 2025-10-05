@@ -5,6 +5,8 @@ import { IoLogOutOutline } from "react-icons/io5";
 import axios from "axios";
 // import gymlogo from "../assets/gymlogo.png";
 
+
+
 interface NavbarProps {
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
   token: string | null;   // 🔥 यह लाइन add करो
@@ -24,9 +26,10 @@ interface User {
   avatar?: string;
 }
 
+
 // ✅ Strongly typed axios call
 const getProfile = (token: string) =>
-  axios.get<User>("http://localhost:5000/api/users/profile", {
+  axios.get<User>("https://gym-backend-2-61kx.onrender.com/api/users/profile", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
