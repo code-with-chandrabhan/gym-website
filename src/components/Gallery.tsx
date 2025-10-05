@@ -53,7 +53,7 @@ function Gallery() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const res = await axios.get("/api/images");
+        const res = await axios.get("https://gym-backend-2-61kx.onrender.com/api/images");
         const data = res.data as Array<{ url?: string; imageUrl?: string }>;
         const urls = data
           .map((img) => img.url || img.imageUrl)
@@ -74,7 +74,7 @@ function Gallery() {
     Array.from(files).forEach((file) => formData.append("images", file));
 
     try {
-      const res = await axios.post("/api/images/upload", formData, {
+      const res = await axios.post("https://gym-backend-2-61kx.onrender.com/api/images/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       const data = res.data as Array<{ url?: string; imageUrl?: string }>;
@@ -89,7 +89,7 @@ function Gallery() {
 
   const handleDeleteImage = async (url: string) => {
     try {
-      await axios.delete(`/api/images?url=${encodeURIComponent(url)}`);
+      await axios.delete(`https://gym-backend-2-61kx.onrender.com/api/images?url=${encodeURIComponent(url)}`);
       setUploadedImages((prev) => prev.filter((img) => img !== url));
     } catch (err) {
       console.error("Error deleting image:", err);

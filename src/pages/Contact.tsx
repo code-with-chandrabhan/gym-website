@@ -49,7 +49,7 @@ const JoinUs: React.FC = () => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const res = await axios.get("/api/testimonials");
+        const res = await axios.get("https://gym-backend-2-61kx.onrender.com/api/testimonials");
         setTestimonials(Array.isArray(res.data) ? res.data : []);
       } catch (err) {
         setError("Failed to load testimonials");
@@ -61,7 +61,7 @@ const JoinUs: React.FC = () => {
   // Handle like button
   const handleLike = async (id: string | undefined) => {
     try {
-      const res = await axios.post(`/api/testimonials/${id}/like`);
+      const res = await axios.post(`https://gym-backend-2-61kx.onrender.com/api/testimonials/${id}/like`);
       const data = res.data as { likes: number };
       setTestimonials((prev) =>
         prev.map((t) => (t._id === id ? { ...t, likes: data.likes } : t))
@@ -82,7 +82,7 @@ const JoinUs: React.FC = () => {
     setReviewLoading(true);
     setError("");
     try {
-      const res = await axios.post("/api/testimonials", newReview);
+      const res = await axios.post("https://gym-backend-2-61kx.onrender.com/api/testimonials", newReview);
       setTestimonials((prev) => [res.data as Testimonial, ...prev]);
       setNewReview({ name: "", comment: "", rating: 5 });
     } catch {
@@ -118,7 +118,7 @@ const JoinUs: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("/api/join", form);
+      const res = await axios.post("https://gym-backend-2-61kx.onrender.com/api/join", form);
       const data = res.data as { message?: string };
       setMessage(data.message || "Thank you! We'll contact you soon.");
       setForm({ name: "", email: "", contact: "" });

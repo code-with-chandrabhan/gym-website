@@ -12,7 +12,7 @@ const JoinUs: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("/api/join", form);
+      const res = await axios.post("https://gym-backend-2-61kx.onrender.com/api/join", form);
       const data = res.data as { message: string };
       alert(data.message);
       setForm({ name: "", email: "", contact: "" });
