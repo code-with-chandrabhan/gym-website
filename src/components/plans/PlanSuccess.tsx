@@ -35,7 +35,7 @@ export default function PlanSuccess({
 
     const verifyPayment = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/payment/verify-payment`, {
+        const res = await fetch(`${API_URL}/payment/verify-payment`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
