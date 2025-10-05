@@ -1,13 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180x180.png" />
+
+    <!-- ✅ Viewport for responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+
+    <!-- ✅ SEO and theme setup -->
+    <meta
+      name="description"
+      content="Gym App - Built with Vite, React, and TailwindCSS"
+    />
+    <meta name="theme-color" content="#ff5a00" />
+
+    <title>Gym App</title>
+
+    <!-- ✅ Small fix to make favicon look crisp on retina displays -->
+    <style>
+      html {
+        image-rendering: -webkit-optimize-contrast;
+      }
+    </style>
   </head>
-  <body>
+
+  <body class="bg-black text-white">
     <div id="root"></div>
+
+    <!-- ✅ Entry point -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
