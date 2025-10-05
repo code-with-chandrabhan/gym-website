@@ -102,7 +102,7 @@ const handleCheckout = async (plan: Plan) => {
       return;
     }
 
-    const res = await fetch(`${API_URL}/api/payment/create-checkout-session`, {
+    const res = await fetch(`${API_URL}/payment/create-checkout-session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
